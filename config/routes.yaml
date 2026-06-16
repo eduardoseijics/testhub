@@ -1,3 +1,10 @@
+api_controllers:
+    resource:
+        path: ../src/Infrastructure/Http/Controller/
+        namespace: App\Infrastructure\Http\Controller
+    type: attribute
+    prefix: /api/v1
+
 controllers:
     resource:
         path: ../src/

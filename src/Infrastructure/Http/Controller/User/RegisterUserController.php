@@ -8,6 +8,7 @@ use DomainException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class RegisterUserController extends AbstractController
@@ -16,24 +17,26 @@ final class RegisterUserController extends AbstractController
     private RegisterUserHandler $handler,
   ) {}
 
-  #[Route('/api/v1/users', methods: ['POST'])]
+  #[Route('/users', methods: ['POST'])]
   public function __invoke(Request $request): JsonResponse
-  {
-    $body = $request->toArray();
-
+  { 
     try {
+      $body = $request->toArray();
+
       $userId = ($this->handler)(new RegisterUserCommand(
-        name: $body['name'],
-        email: $body['email'],
-        password: $body['password'],
-        profile: $body['profile'],
+        name: $body['name'] ?? '',
+        email: $body['email'] ?? '',
+        password: $body['password'] ?? '',
+        profile: $body['profile'] ?? '',
       ));
 
-      return $this->json(['id' => $userId], 201);
+      return $this->json(['id' => $userId], Response::HTTP_CREATED);
+    } catch (\Symfony\Component\HttpFoundation\Exception\JsonException $e) {
+      return $this->json(['error' => 'Invalid JSON payload'], Response::HTTP_BAD_REQUEST);
     } catch (DomainException $e) {
-      return $this->json(['error' => $e->getMessage()], 409);
+      return $this->json(['error' => $e->getMessage()], Response::HTTP_CONFLICT);
     } catch (\InvalidArgumentException $e) {
-      return $this->json(['error' => $e->getMessage()], 422);
+      return $this->json(['error' => $e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
     }
   }
 }

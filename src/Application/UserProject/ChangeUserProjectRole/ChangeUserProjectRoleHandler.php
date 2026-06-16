@@ -4,8 +4,14 @@ namespace App\Application\UserProject\ChangeUserProjectRole;
 
 class ChangeUserProjectRoleHandler
 {
+
+  public function __construct(
+    private readonly UserProjectRepositoryInterface $repository,
+  ) {}
+  
   public function handle(ChangeUserProjectRoleCommand $command): void
   {
+    
     $executor = $this->repository->findByUserAndProject(
       $command->executorId,
       $command->projectId

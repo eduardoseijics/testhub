@@ -13,7 +13,7 @@ final class GetUsersController extends AbstractController
     private GetUsersHandler $handler,
   ) {}
 
-  #[Route('/api/v1/users', methods: ['GET'])]
+  #[Route('/users', methods: ['GET'])]
   public function __invoke(): JsonResponse
   {
     return $this->json(($this->handler)());

@@ -3,9 +3,9 @@
 namespace App\Project\Application\Command;
 
 use App\Application\Project\AddMemberCommand;
+use App\Domain\Project\ValueObject\ProjectId;
 use App\Identity\Domain\ValueObject\UserId;
 use App\Project\Domain\Repository\ProjectRepositoryInterface;
-use App\Project\Domain\ValueObject\ProjectId;
 use App\Project\Domain\ValueObject\ProjectRole;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 

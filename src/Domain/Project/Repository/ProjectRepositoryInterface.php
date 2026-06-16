@@ -2,9 +2,10 @@
 
 namespace App\Project\Domain\Repository;
 
+use App\Domain\Project\ValueObject\ProjectId;
 use App\Project\Domain\Entity\Project;
-use App\Project\Domain\ValueObject\ProjectId;
 use App\Project\Domain\ValueObject\Slug;
+
 
 interface ProjectRepositoryInterface
 {

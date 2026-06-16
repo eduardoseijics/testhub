@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Application\Project;
+namespace App\Application\UserProject\ChangeUserProjectRole;
 
-class AddMemberCommand
+class ChangeUserProjectRoleCommand
 {
   public function __construct(
     public readonly string $executorId,
